@@ -10,10 +10,10 @@
 const twoSum = (nums, target) => {
   const length = nums.length
 
-  for (let start = 0; start < length; start++) {
-    for (let end = start + 1; end < length; end++) {
-      if (nums[start] + nums[end] === target) {
-        return [start, end]
+  for (let index = 0; index < length; index++) {
+    for (let complementIndex = index + 1; complementIndex < length; complementIndex++) {
+      if (nums[index] + nums[complementIndex] === target) {
+        return [index, complementIndex]
       }
     }
   }
@@ -26,10 +26,10 @@ const twoSum = (nums, target) => {
 const twoSum = (nums, target) => {
   const length = nums.length
 
-  for (let start = 0; start < length; start++) {
-    const end = nums.indexOf(target - nums[start])
-    if (end > -1 && end !== start) {
-      return [start, end]
+  for (let index = 0; index < length; index++) {
+    const complementIndex = nums.indexOf(target - nums[index])
+    if (complementIndex > -1 && complementIndex !== index) {
+      return [index, complementIndex]
     }
   }
 }
@@ -44,10 +44,10 @@ const twoSum = (nums, target) => {
 
   nums.forEach((i, index) => map[i] = index)
 
-  for (let start = 0; start < length; start++) {
-    const end = map[target - nums[start]]
-    if (end !== undefined && end !== start) {
-      return [start, end]
+  for (let index = 0; index < length; index++) {
+    const complementIndex = map[target - nums[index]]
+    if (complementIndex !== undefined && complementIndex !== index) {
+      return [index, complementIndex]
     }
   }
 }
@@ -60,11 +60,30 @@ const twoSum = (nums, target) => {
   const map = {}
   const length = nums.length
 
-  for (let start = 0; start < length; start++) {
-    let end = map[target - nums[start]]
-    if (end !== undefined && end !== start) {
-      return [start, end]
+  for (let index = 0; index < length; index++) {
+    let complementIndex = map[target - nums[index]]
+    if (complementIndex !== undefined && complementIndex !== index) {
+      return [index, complementIndex]
     }
-    map[nums[start]] = start
+    map[nums[index]] = index
   }
+}
+
+/**
+ * One-pass Hash Table ver.2
+ * Runtime: 56 ms
+ */
+const twoSum = (nums, target) => {
+  const map = {}
+  let result
+
+  nums.forEach((x, index) => {
+    const complementIndex = map[target - x]
+    if (complementIndex !== undefined && complementIndex !== index) {
+      result = [complementIndex, index]
+      return false
+    }
+    map[x] = index
+  })
+  return result
 }
