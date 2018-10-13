@@ -61,7 +61,7 @@ const twoSum = (nums, target) => {
   const length = nums.length
 
   for (let index = 0; index < length; index++) {
-    let complementIndex = map[target - nums[index]]
+    const complementIndex = map[target - nums[index]]
     if (complementIndex !== undefined && complementIndex !== index) {
       return [index, complementIndex]
     }
